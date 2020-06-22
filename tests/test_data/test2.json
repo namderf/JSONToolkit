@@ -1,0 +1,28 @@
+[{"p": {
+  "string": "",
+  "contents":  [
+    {
+      "strong": {
+        "string": "This is a string text"
+      }
+    },
+    {"p": {
+      "string": "Foo Bar"
+    }}]
+}},
+{"p": {
+  "string": "",
+  "contents":  [
+    {
+      "strong": {
+        "string": "This is another strong text"
+      }
+    },
+    {"strong": {
+      "string": "another text"
+    }},
+    {"p": {
+      "string":"some text, again"
+    }}]
+}}
+]

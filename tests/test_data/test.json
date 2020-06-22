@@ -1,0 +1,45 @@
+{
+  "company1" : {
+    "department1" : {
+      "head": {
+        "name": "Jacky Lynch"
+      },
+      "janitor": {
+        "name": "Paul Meier"
+      },
+      "team": [
+        {"name":  "Lodger Reimann",
+        "skills":  ["C#", "JavaScript", "Python"],
+        "age":  34},
+        {"name":  "Maria Benz",
+        "age":  21}
+      ]
+    },
+    "department2": {
+      "head": {
+        "name": "Mike Steffens"
+      },
+      "janitor": {
+        "name": "Johanna Simon"
+      }
+    }
+  },
+  "company2" : {
+    "department1" : {
+      "head": {
+        "name": "Fryo Baum"
+      },
+      "janitor": {
+        "name": "Lukas Dorfmen"
+      }
+    },
+    "department2": {
+      "head": {
+        "name": "Janine Quatsch"
+      },
+      "janitor": {
+        "name": "Liberia Simons"
+      }
+    }
+  }
+}

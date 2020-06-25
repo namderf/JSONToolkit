@@ -1,4 +1,4 @@
-from jsontoolkit import jsontoolkit as jtk
+from jsontoolkit.jsontoolkit import JsonToolKit
 import unittest
 import json
 
@@ -9,6 +9,7 @@ class GetKeyPathsTestCase(unittest.TestCase):
         self.test_data1=json.load(self.file)
         self.file2 = open('tests/test_data/test2.json', 'r')
         self.test_data2=json.load(self.file2)
+        self.tk = JsonToolKit()
 
 
     def test_get_keypaths(self):
@@ -38,9 +39,9 @@ class GetKeyPathsTestCase(unittest.TestCase):
                                   'p.contents', 'p.contents.strong.string',
                                   'p.contents.p', 'p.string', 'p']
 
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data1)),
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data1)),
                       sorted(test_data1_keypaths))
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data2)),
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data2)),
                              sorted(test_data2_keypaths))
 
     def test_get_keypaths_hide_no_arrays(self):
@@ -77,10 +78,10 @@ class GetKeyPathsTestCase(unittest.TestCase):
                              '[0].p.contents[0].strong.string',
                              '[1].p.contents[0].strong', '[1].p.string',
                              '[0].p.contents[0].strong']
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data1,
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data1,
                                                      hide_arrays=False)),
                              sorted(test_data1_keypaths))
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data2,
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data2,
                                                      hide_arrays=False)),
                              sorted(test_data2_keypaths))
 
@@ -88,10 +89,10 @@ class GetKeyPathsTestCase(unittest.TestCase):
         test_data1_keypaths=['head.name', 'janitor.name', 'team.skills', 'head',
                                   'team', 'janitor', 'team.age', 'team.name']
         test_data2_keypaths=['p', 'p.string', 'strong', 'strong.string']
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data1,
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data1,
                                                   start_key="company1.department1")),
                              sorted(test_data1_keypaths))
-        self.assertListEqual(sorted(jtk.get_keypaths(self.test_data2,
+        self.assertListEqual(sorted(self.tk.get_keypaths(self.test_data2,
                                                      start_key="p.contents")),
                              sorted(test_data2_keypaths))
 

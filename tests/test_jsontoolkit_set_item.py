@@ -2,6 +2,7 @@ from jsontoolkit.jsontoolkit import JsonToolKit
 import unittest
 import json
 
+
 class SetItemTestCase(unittest.TestCase):
     def setUp(self):
         self.file = open('tests/test_data/test.json', 'r')

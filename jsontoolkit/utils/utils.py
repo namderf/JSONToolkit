@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 def get_index_from_key(key):
     index_start = key.find("[")
     index_end = key.find("]")
@@ -23,3 +26,8 @@ def string_reps_int(input_string):
             return False
     else:
         return False
+
+
+class Methods(Enum):
+    SET_ITEM = 1
+    DEL_ITEM = 2

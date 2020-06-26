@@ -2,12 +2,12 @@ from jsontoolkit.utils import utils
 
 
 def _action(method, data, key, index=None, value=None):
-    if method is "set_item":
+    if method is utils.Methods.SET_ITEM:
         if not index:
             data[key] = value
         else:
             data[key][index] = value
-    elif method is "del_item":
+    elif method is utils.Methods.DEL_ITEM:
         if not index:
             del data[key]
         else:
@@ -36,7 +36,7 @@ def _execute(keychain, method, data, value=None):
         if key is '' and index is not False:
             data[index] = _execute(keychain[1:], method, data=data[index], value=value)
         else:
-            if method is "set_item":
+            if method is utils.Methods.SET_ITEM:
                 data = _check_for_new_item(data,key)
             for ind, val in enumerate(data):
                 data[ind] = _execute(keychain, method, data=data[ind], value=value)
@@ -46,8 +46,8 @@ def _execute(keychain, method, data, value=None):
                 if len(keychain) == 1:
                     data = _action(method, data, key, index, value)
                 else:
-                    data[key][index] = _execute(keychain[1:],
-                                                    method, data=data[key][index],
+                    data[key][index] = _execute(keychain[1:], method,
+                                                data=data[key][index],
                                                 value=value)
             else:
                 if len(keychain) == 1:
@@ -65,22 +65,24 @@ class JsonToolKit:
     def __init__(self, d=None):
         self._data=d if d else {}
 
+
     def get_json(self):
         return self._data
 
     def set_item(self, keychain, value, data=None):
         if data:
-            data = _execute(keychain, "set_item", data=data, value=value)
+            data = _execute(keychain, utils.Methods.SET_ITEM, data=data, value=value)
         elif not data:
-            self._data = _execute(keychain, "set_item", data=self._data, value=value)
+            self._data = _execute(keychain, utils.Methods.SET_ITEM, data=self._data,
+                                  value=value)
             data = self._data
         return data
 
     def del_item(self, keychain, data=None):
         if data:
-            data = _execute(keychain, "del_item", data=data)
+            data = _execute(keychain, utils.Methods.DEL_ITEM, data=data)
         elif not data:
-            self._data = _execute(keychain, "del_item", data=self._data)
+            self._data = _execute(keychain, utils.Methods.DEL_ITEM, data=self._data)
             data = self._data
         return data
 

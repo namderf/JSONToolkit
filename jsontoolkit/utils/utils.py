@@ -29,5 +29,6 @@ def string_reps_int(input_string):
 
 
 class Methods(Enum):
-    SET_ITEM = 1
-    DEL_ITEM = 2
+    GET_VALUE = 1
+    SET_ITEM = 2
+    DEL_ITEM = 3

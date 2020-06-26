@@ -30,7 +30,7 @@ class SetItemTestCase(unittest.TestCase):
                                       {'p': {'string': 'some text, again'}}
                                   ]}}
                            ]
-        self.assertEqual(self.tk.get_value(data1, "company1.department2"),
+        self.assertEqual(self.tk.get_value("company1.department2", data1),
                          test_data1_result)
         self.assertEqual(data2, test_data2_result)
 
@@ -38,8 +38,8 @@ class SetItemTestCase(unittest.TestCase):
         self.tk_impl.set_item("company1.department2.test", "Test")
         test_data1_result = {'head': {'name': 'Mike Steffens'},
                              'janitor': {'name': 'Johanna Simon'}, 'test': 'Test'}
-        self.assertEqual(self.tk_impl.get_value(self.tk_impl.get_json(),
-                                                "company1.department2"),test_data1_result)
+        self.assertEqual(self.tk_impl.get_value("company1.department2"),
+                         test_data1_result)
 
     def tearDown(self):
         self.file.close()

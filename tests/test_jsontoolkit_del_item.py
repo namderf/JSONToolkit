@@ -29,7 +29,7 @@ class DelItemTestCase(unittest.TestCase):
                                     ]}}
                              ]
 
-        self.assertEqual(self.tk.get_value(data1, "company1.department2"),
+        self.assertEqual(self.tk.get_value("company1.department2", data1),
                          test_data1_result)
         self.assertEqual(data2, test_data2_result)
 
@@ -37,8 +37,8 @@ class DelItemTestCase(unittest.TestCase):
     def test_del_item_implicit(self):
         self.tk_impl.del_item("company1.department2.janitor")
         test_data1_result = {'head': {'name': 'Mike Steffens'}}
-        self.assertEqual(self.tk_impl.get_value(self.tk_impl.get_json(),
-                                                "company1.department2"),test_data1_result)
+        self.assertEqual(self.tk_impl.get_value("company1.department2"),
+                         test_data1_result)
 
 
     def tearDown(self):

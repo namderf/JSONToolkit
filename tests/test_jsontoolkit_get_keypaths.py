@@ -11,7 +11,6 @@ class GetKeyPathsTestCase(unittest.TestCase):
         self.test_data2=json.load(self.file2)
         self.tk = JsonToolKit()
 
-
     def test_get_keypaths(self):
         test_data1_keypaths=['company1.department2.head.name',
                                   'company2.department2.janitor',

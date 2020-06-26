@@ -4,20 +4,20 @@ import copy
 
 def _action(method, data, key, index=None, value=None):
     if method is utils.Methods.GET_VALUE:
-        if not index:
-            return data[key]
-        else:
+        if utils.check_for_valid_index(index):
             return data[key][index]
+        else:
+            return data[key]
     elif method is utils.Methods.SET_ITEM:
-        if not index:
-            data[key] = value
-        else:
+        if utils.check_for_valid_index(index):
             data[key][index] = value
-    elif method is utils.Methods.DEL_ITEM:
-        if not index:
-            del data[key]
         else:
+            data[key] = value
+    elif method is utils.Methods.DEL_ITEM:
+        if utils.check_for_valid_index(index):
             del data[key][index]
+        else:
+            del data[key]
     return data
 
 
@@ -30,13 +30,11 @@ def _check_for_new_item(data, key):
     return data
 
 
-def _create_ret_array(data):
-    ret_val = []
+def _create_ret_array(data, ret_val):
     if isinstance(data, list):
         ret_val.extend(data)
     elif data:
         ret_val.append(data)
-    return ret_val
 
 
 def _execute(keychain, method, data, value=None):
@@ -45,10 +43,12 @@ def _execute(keychain, method, data, value=None):
     key_index_array = utils.get_index_from_key(keychain[0])
     key = key_index_array[0]
     index = utils.string_reps_int(key_index_array[1])
-    #print(data)
+
     if isinstance(data, list):
-        if key is '' and index is not False:
+        if key is '' and utils.check_for_valid_index(index):
             data[index] = _execute(keychain[1:], method, data=data[index], value=value)
+            if method is utils.Methods.GET_VALUE:
+                data = data[index]
         else:
             ret_val = []
             if method is utils.Methods.SET_ITEM:
@@ -56,12 +56,12 @@ def _execute(keychain, method, data, value=None):
             for ind, val in enumerate(data):
                 data[ind] = _execute(keychain, method, data=data[ind], value=value)
                 if method is utils.Methods.GET_VALUE:
-                    ret_val = _create_ret_array(data[ind])
+                    _create_ret_array(data[ind], ret_val)
             if method is utils.Methods.GET_VALUE:
                 data = ret_val
     else:
         try:
-            if index is not False and isinstance(data[key], list):
+            if utils.check_for_valid_index(index) and isinstance(data[key], list):
                 if len(keychain) == 1:
                     data = _action(method, data, key, index, value)
                 else:

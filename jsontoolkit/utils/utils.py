@@ -28,6 +28,13 @@ def string_reps_int(input_string):
         return False
 
 
+def check_for_valid_index(index):
+    if type(index) is int and index>-1:
+        return True
+    else:
+        return False
+
+
 class Methods(Enum):
     GET_VALUE = 1
     SET_ITEM = 2

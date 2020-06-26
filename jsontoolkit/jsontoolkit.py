@@ -72,11 +72,19 @@ class JsonToolKit:
         if data:
             data = _execute(keychain, "set_item", data=data, value=value)
         elif not data:
-            self._data=_execute(keychain, "set_item", data=self._data, value=value)
-            data=self._data
+            self._data = _execute(keychain, "set_item", data=self._data, value=value)
+            data = self._data
         return data
 
-    def del_item(self, data, keychain):
+    def del_item(self, keychain, data=None):
+        if data:
+            data = _execute(keychain, "del_item", data=data)
+        elif not data:
+            self._data = _execute(keychain, "del_item", data=self._data)
+            data = self._data
+        return data
+
+    def del_item2(self, data, keychain):
         if isinstance(keychain, str):
             keychain = keychain.split(".")
         key_index_array = utils.get_index_from_key(keychain[0])

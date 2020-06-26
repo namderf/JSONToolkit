@@ -13,11 +13,33 @@ class DelItemTestCase(unittest.TestCase):
         self.tk_impl = JsonToolKit(self.test_data1)
 
     def test_del_item_explicit(self):
-        data1=self.tk.del_item(keychain="company1.department2.janitor", \
-                                data=self.test_data1)
+        data1=self.tk.del_item("company1.department2.janitor", data=self.test_data1)
         test_data1_result={'head': {'name': 'Mike Steffens'}}
+        data2 = self.tk.del_item("p.contents.strong.string", data=self.test_data2)
+        test_data2_result = [{'p': {'string': '',
+                                    'contents': [
+                                        {'strong': {}},
+                                        {'p': {'string': 'Foo Bar'}}
+                                    ]}},
+                             {'p': {'string': '',
+                                    'contents': [
+                                        {'strong': {}},
+                                        {'strong': {}},
+                                        {'p': {'string': 'some text, again'}}
+                                    ]}}
+                             ]
+
         self.assertEqual(self.tk.get_value(data1, "company1.department2"),
                          test_data1_result)
+        self.assertEqual(data2, test_data2_result)
+
+
+    def test_del_item_implicit(self):
+        self.tk_impl.del_item("company1.department2.janitor")
+        test_data1_result = {'head': {'name': 'Mike Steffens'}}
+        self.assertEqual(self.tk_impl.get_value(self.tk_impl.get_json(),
+                                                "company1.department2"),test_data1_result)
+
 
     def tearDown(self):
         self.file.close()

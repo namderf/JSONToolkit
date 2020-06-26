@@ -84,34 +84,6 @@ class JsonToolKit:
             data = self._data
         return data
 
-    def del_item2(self, data, keychain):
-        if isinstance(keychain, str):
-            keychain = keychain.split(".")
-        key_index_array = utils.get_index_from_key(keychain[0])
-        key = key_index_array[0]
-        index = utils.string_reps_int(key_index_array[1])
-        if isinstance(data, list):
-            if key is '' and index is not False:
-                data[index] = self.del_item(data[index], keychain[1:])
-            else:
-                for ind, value in enumerate(data):
-                    data[ind] = self.del_item(data[ind], keychain)
-        else:
-            try:
-                if index is not False and isinstance(data[key], list):
-                    if len(keychain) == 1:
-                        del data[key][index]
-                    else:
-                        data[key][index] = self.del_item(data[key][index], keychain[1:])
-                else:
-                    if len(keychain) == 1:
-                        del data[key]
-                    else:
-                        data[key] = self.del_item(data[key], keychain[1:])
-            except KeyError:
-                pass
-        return data
-
     def get_value(self, data, keychain):
         if isinstance(keychain, str):
             keychain = keychain.split(".")
